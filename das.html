@@ -1,0 +1,575 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainstyle.css') }}">
+    <style>
+        /* Add CSS styles here */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 40vh;
+            flex-direction: column;
+        }
+        .highlight-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #eb6a5a; /* Change to desired background color */
+            color: white; /* Change to desired text color */
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight-link:hover {
+            background-color: #c9402f; /* Change to desired hover background color */
+        }
+        footer {
+            text-align: left; /* Align text to the left */
+            background-color: #f2f2f2; /* Background color for the footer */
+            padding: 20px 40px; /* Padding for the footer */
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: #555; /* Text color for the footer */
+            font-size: 14px;
+            animation: slidein 10s linear infinite; /* Animation settings */
+        }
+
+        /* Keyframe animation */
+        @keyframes slidein {
+            0% {
+                transform: translateX(-100%); /* Start position */
+            }
+            100% {
+                transform: translateX(100%); /* End position */
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <h1><center><font color="#9900FF" >Image Steganography </font></center></h1>
+
+
+    <h2><center>Encode Text into Image </center></h2>
+    
+    <div class="container">
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="image_file">Select Image File:</label>
+        <input type="file" id="image_file" name="image_file">
+        <br>
+        <label for="text_data">Enter Text to Hide:</label>
+        <textarea id="text_data" name="text_data" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" name="encode" value="Encode" style="margin-top: 10px;margin-left: 250px;">
+    </form>
+</div>
+
+    <h2><center>Decode Text from Image</center></h2>
+    <div class="container">
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="encrypted_image">Upload Encrypted Image:</label>
+        <input type="file" id="encrypted_image" name="encrypted_image">
+        <br>
+        <input type="submit" name="decode" value="Decode" style="margin-left: 195px;">
+    </form>
+
+
+    {% if decoded_text %}
+    <h2>Decoded Text:</h2>
+    <p>{{ decoded_text }}</p>
+    {% endif %}
+   
+    <h3><center><a class="highlight-link" href="/dashboard.html">Triple DES</a></center></h3>
+
+
+</div>
+<footer>
+    Designed and Developed by Team 5 Mohammad Muzamil Aldin and Team
+</footer>
+</body>
+</html>
+ -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography Tool</title>
+    <style>
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 300;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8j4PKsOdC6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8jvvKsOdC6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 500;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8jjPKsOdC6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8jWfWsOdC6.ttf) format('truetype');
+        }
+        body {
+            background: #ebeff2;
+            font-family: "Exo 2";
+        }
+        .zone {
+            margin: auto;
+            position: absolute;
+            top: 10%;
+            left: 0;
+            bottom: 0;
+            right: 40%;
+            background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+            width: 40%;
+            height: 50%;
+            border: 5px dashed white;
+            text-align: center;
+            color: white;
+            z-index: 20;
+            transition: all 0.3s ease-out;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+        }
+        .zone-image {
+            margin: auto;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            bottom: 0;
+            right: 0;
+            background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+            width: 450px;
+            height: 450px;
+            border: 5px dashed white;
+            text-align: center;
+            color: white;
+            z-index: 20;
+            transition: all 0.3s ease-out;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+        }
+        /* Add other CSS styles as needed */
+    </style>
+</head>
+<body>
+    <h1>Steganography Tool</h1>
+
+    <h2>Encode Text into Image</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="image_file">Select Image File:</label>
+        <input type="file" id="image_file" name="image_file">
+        <br>
+        <label for="text_data">Enter Text to Hide:</label>
+        <textarea id="text_data" name="text_data" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" name="encode" value="Encode">
+    </form>
+
+    <h2>Decode Text from Image</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="encrypted_image">Upload Encrypted Image:</label>
+        <input type="file" id="encrypted_image" name="encrypted_image">
+        <br>
+        <input type="submit" name="decode" value="Decode">
+    </form>
+
+
+    {% if decoded_text %}
+    <h2>Decoded Text:</h2>
+    <p>{{ decoded_text }}</p>
+    {% endif %}
+    <h3><a href="/dashboard.html">Triple DES</a></h3>
+
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steganography Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainstyle.css') }}">
+    <style>
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 300;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8j4PKsOdC6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 400;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8jvvKsOdC6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 500;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8jjPKsOdC6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 700;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8jWfWsOdC6.ttf) format('truetype');
+        }
+        body {
+            background: #ebeff2;
+            font-family: "Exo 2";
+        }
+        .zone {
+            margin: auto;
+            position: absolute;
+            top: 10%;
+            left: 0;
+            bottom: 0;
+            right: 40%;
+            background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+            width: 40%;
+            height: 50%;
+            border: 5px dashed white;
+            text-align: center;
+            color: white;
+            z-index: 20;
+            transition: all 0.3s ease-out;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+        }
+        .zone-image {
+            margin: auto;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            bottom: 0;
+            right: 0;
+            background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+            width: 450px;
+            height: 450px;
+            border: 5px dashed white;
+            text-align: center;
+            color: white;
+            z-index: 20;
+            transition: all 0.3s ease-out;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+        }
+        .zone .btnCompression .active {
+            background: #eb6a5a;
+            color: white;
+        }
+        .zone i {
+            text-align: center;
+            font-size: 10em;
+            color: #fff;
+            margin-top: 50px;
+        }
+        .zone .selectFile {
+            height: 50px;
+            margin: 20px auto;
+            position: relative;
+            width: 200px;
+        }
+        .zone label,
+        .zone input {
+            cursor: pointer;
+            display: block;
+            height: 50px;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .zone label {
+            background: #fff;
+            color: #eb6a5a;
+            display: inline-block;
+            font-size: 1.2em;
+            line-height: 50px;
+            padding: 0;
+            text-align: center;
+            white-space: nowrap;
+            text-transform: uppercase;
+            font-weight: 400;
+            box-shadow: 0 1px 1px gray;
+        }
+        .zone input[type="file"] {
+            opacity: 0;
+        }
+        .zone.in {
+            color: white;
+            border-color: white;
+            background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+        }
+        .zone.in i {
+            color: #fff;
+        }
+        .zone.in label {
+            background: #fff;
+            color: #eb6a5a;
+        }
+        .zone.hover {
+            color: gray;
+            border-color: white;
+            background: #fff;
+            border: 5px dashed gray;
+        }
+        .zone.hover i {
+            color: #eb6a5a;
+        }
+        .zone.hover label {
+            background: #fff;
+            color: #eb6a5a;
+        }
+        .zone.fade {
+            transition: all 0.3s ease-out;
+            opacity: 1;
+        }
+        
+        #dropZ {
+            margin-top: 21%;
+        }
+        #title {
+            text-align: center;
+            color: rgb(0, 0, 0);
+            font-size: 60px;
+            margin-top: 4%;
+        }
+        label {
+            position: absolute;
+            top: 83%;
+            right: 3.7%;
+        }
+        input[type="text"] {
+            border: none;
+            width: 300px;
+            height: 40px;
+            padding: 0 10px;
+            border: 2px solid black;
+        }
+        button {
+            position: relative;
+            top: 0;
+            bottom: 0;
+            right: 5px;
+            background: #d39e2b;
+            color: white;
+            padding: 0 10px;
+            letter-spacing: 1.2px;
+            border: 2px solid black;
+            cursor: pointer;
+            height: 44px;
+        }
+        .result {
+            position: relative;
+            top: 5%;
+        }
+    </style>
+</head>
+<body>
+    <h1><center><font color="#9900FF" >Steganography Tool</font></center></h1>
+
+    <h2>Encode Text into Image</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="image_file">Select Image File:</label>
+        <input type="file" id="image_file" name="image_file">
+        <br>
+        <label for="text_data">Enter Text to Hide:</label>
+        <textarea id="text_data" name="text_data" rows="4" cols="50"></textarea>
+        <br>
+        <input type="submit" name="encode" value="Encode">
+    </form>
+
+    <h2>Decode Text from Image</h2>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="encrypted_image">Upload Encrypted Image:</label>
+        <input type="file" id="encrypted_image" name="encrypted_image">
+        <br>
+        <input type="submit" name="decode" value="Decode">
+    </form>
+
+    {% if decoded_text %}
+    <h2>Decoded Text:</h2>
+    <p>{{ decoded_text }}</p>
+    {% endif %}
+    <h3><a href="/dashboard.html">Triple DES</a></h3>
+
+</body>
+</html> 
+<new--> 
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Steganography Tool</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='mainstyle.css') }}">
+        <style>
+            /* Provided CSS styles */
+            /* Add CSS styles here */
+            @font-face {
+                font-family: 'Exo 2';
+                font-style: normal;
+                font-weight: 300;
+                src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8j4PKsOdC6.ttf) format('truetype');
+            }
+            /* Repeat @font-face for other font weights (400, 500, 700) */
+    
+            body {
+                background: #ebeff2;
+                font-family: "Exo 2";
+                position: relative;
+            }
+    
+            .water-ripple {
+                position: absolute;
+                width: 100px;
+                height: 100px;
+                background-color: rgba(255, 255, 255, 0.4); /* Adjust opacity to your preference */
+                border-radius: 50%;
+                pointer-events: none; /* Ensure the ripple doesn't interfere with mouse events */
+                animation: ripple 1s infinite ease-in-out alternate; /* Adjust animation duration and timing function */
+            }
+    
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+    
+            .container {
+                display: flex;
+                justify-content: space-between;
+            }
+    
+            .zone {
+                width: 45%;
+                margin: 20px;
+                padding: 20px;
+                background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+                border: 5px dashed white;
+                color: white;
+                box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+            }
+    
+            label {
+                display: block;
+                margin-top: 10px;
+            }
+    
+            input[type="file"],
+            input[type="text"] {
+                width: calc(100% - 40px);
+                padding: 8px;
+                box-sizing: border-box;
+                margin-top: 5px;
+                border: none;
+                background-color: rgba(255, 255, 255, 0.2);
+                color: white;
+            }
+    
+            input[type="submit"] {
+                background-color: #d39e2b;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                width: calc(100% - 40px);
+                margin-top: 10px;
+            }
+            .btn-triple-des {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #9900FF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-triple-des:hover {
+            background-color: #7A00CC;
+        }
+    
+            footer {
+                text-align: center;
+                margin-top: 20px;
+                color: #555;
+            }
+        </style>
+    </head>
+    <body>
+        <h1><center><font color="#9900FF" >Image Steganography </font></center></h1>
+    
+        <h2><center>Encode Text into Image </center></h2>
+        <div class="container">
+            <div class="zone">
+                <form action="/das" method="post" enctype="multipart/form-data">
+                    <label for="image_file">Select Image File:</label>
+                    <input type="file" id="image_file" name="image_file">
+                    <br>
+                    <label for="text_data">Enter Text to Hide:</label>
+                    <textarea id="text_data" name="text_data" rows="4" cols="50"></textarea>
+                    <br>
+                    <input type="submit" name="encode" value="Encode">
+                </form>
+            </div>
+    
+            <div class="zone">
+                <form action="/das" method="post" enctype="multipart/form-data">
+                    <label for="encrypted_image">Upload Encrypted Image:</label>
+                    <input type="file" id="encrypted_image" name="encrypted_image">
+                    <br>
+                    <input type="submit" name="decode" value="Decode">
+                </form>
+                {% if decoded_text %}
+                    <h2>Decoded Text:</h2>
+                    <p>{{ decoded_text }}</p>
+                {% endif %}
+            </div>
+        </div>
+    
+        <!-- JavaScript for creating the water ripple effect -->
+        <script>
+            document.addEventListener('mousemove', function (e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('water-ripple');
+                ripple.style.left = e.pageX + 'px';
+                ripple.style.top = e.pageY + 'px';
+                document.body.appendChild(ripple);
+                setTimeout(() => {
+                    document.body.removeChild(ripple);
+                }, 1000); // Adjust ripple duration
+            });
+        </script>
+        <h3><a class="btn-triple-des" href="/dashboard.html">Triple DES</a></h3>
+
+        <footer>
+            Designed and Developed by Team 5 Mohammad Muzamil Aldin and Team
+        </footer>
+    </body>
+    </html>
+    
+
+    

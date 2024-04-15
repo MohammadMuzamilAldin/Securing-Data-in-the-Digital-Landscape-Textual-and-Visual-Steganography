@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securing Data in the Digital Landscape: Textuat and Visual Steganography</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        body {
+    background-image: url("static/Back.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white; /* Set text color to white */
+    opacity: 0.8; /* Adjust opacity to blend text with background */
+}
+
+/* Adjust styles for header, main, and footer */
+header, main, footer {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    padding: 20px; /* Add padding for readability */
+}
+
+/* Style links in navigation */
+nav ul li a {
+    color: white; /* Set link color to white */
+}
+
+/* Adjust section styles */
+.section {
+    background-color: white; /* Semi-transparent black background */
+    padding: 20px; /* Add padding for readability */
+    margin: 20px 0; /* Add margin to separate sections */
+}
+
+/* Style headings */
+h1, h2, h3 {
+    color: white; /* Set heading color to white */
+}
+
+/* Style paragraphs */
+p {
+    color: white; /* Set paragraph color to white */
+}
+
+        header nav ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Main content styles */
+        main {
+            padding: 20px;
+        }
+
+        /* Section styles */
+        .section {
+            background-color:rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: height 0.3s ease;
+            cursor: pointer; /* Add cursor pointer for clickable effect */
+        }
+
+        .expanded {
+            height: auto !important;
+        }
+
+        /* Photo gallery styles */
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .photo-gallery img {
+            width: 200px;
+            height: 150px;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .photo-gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Case studies styles */
+        .case-studies {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .case-study {
+            flex: 0 1 calc(50% - 10px);
+            background-color:rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Securing Data in the Digital Landscape: Textual and Visual Steganography</h1>
+    <nav>
+        <ul>
+            <li><a href="/das">Image Steganography</a></li>
+            <!-- <li><a href="#" onclick="navigateToIndex()">Image Steganography</a></li> -->
+
+            <li><a href="/dashboard.html">Text Steganography</a></li>
+            <li><a href="/audio_steganography">Audio Steganography</a></li>
+            
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="importance" class="section">
+        <h2>Why is Cybersecurity Important?</h2>
+        <p>Cybersecurity is critical for protecting digital assets, including sensitive information, financial data, and personal records, from unauthorized access, theft, and exploitation.</p>
+        <p>Key reasons why cybersecurity is essential:</p>
+        <ul>
+            <li>Prevention of data breaches and identity theft</li>
+            <li>Protection of intellectual property and trade secrets</li>
+            <li>Mitigation of financial losses and reputational damage</li>
+            <li>Ensuring trust and confidence in online transactions and services</li>
+            <li>Maintaining national security and public safety</li>
+        </ul>
+    </section>
+
+    <section id="steganography" class="section">
+        <h2>Steganography</h2>
+        <p>Steganography is the practice of concealing information within other non-secret data, such as images, audio files, or text messages, to hide its existence. Unlike cryptography, which focuses on making encrypted data unreadable, steganography aims to make the existence of the hidden information undetectable.</p>
+        <p>Steganography plays a crucial role in data protection by providing an additional layer of security. It allows sensitive information to be hidden in plain sight, making it difficult for unauthorized individuals to detect or intercept.</p>
+        <h3>Types of Steganography</h3>
+        <ul>
+            <li><strong>Image Steganography:</strong> Conceals information within digital images.</li>
+            <li><strong>Audio Steganography:</strong> Embeds data within audio files, such as MP3 or WAV files.</li>
+            <li><strong>Video Steganography:</strong> Hides information within video files, utilizing frames or audio tracks.</li>
+            <li><strong>Text Steganography:</strong> Conceals data within text documents or messages.</li>
+        </ul>
+        <h3>Text Steganography</h3>
+        <p>Text steganography involves hiding secret messages within seemingly innocuous text documents or messages. Techniques for text steganography include:</p>
+        <ul>
+            <li><strong>Whitespace Steganography:</strong> Embedding hidden data in the whitespace characters (spaces, tabs, or line breaks) of a text document.</li>
+            <li><strong>Font Steganography:</strong> Encoding secret messages by using different fonts, font sizes, or font styles within a text document.</li>
+            <li><strong>Format-based Steganography:</strong> Concealing information by manipulating the formatting elements (e.g., color, indentation, alignment) of a text document.</li>
+        </ul>
+        <h3>Visual Steganography</h3>
+        <p>Visual steganography involves hiding secret information within digital images. Common methods of visual steganography include:</p>
+        <ul>
+            <li><strong>Least Significant Bit (LSB) Steganography:</strong> Replacing the least significant bits of pixel values in an image with the bits of the secret message.</li>
+            <li><strong>Palette-based Steganography:</strong> Modifying the color palette of an indexed-color image to embed hidden data.</li>
+            <li><strong>Transform Domain Techniques:</strong> Applying mathematical transformations (e.g., discrete cosine transform) to hide information in the frequency domain of an image.</li>
+        </ul>
+    </section>
+
+    <section id="photos" class="section">
+        <h2>Photos</h2>
+        <div class="photo-gallery">
+            <img src="https://via.placeholder.com/200x150" alt="Photo 1">
+            <img src="https://via.placeholder.com/200x150" alt="Photo 2">
+            <img src="https://via.placeholder.com/200x150" alt="Photo 3">
+        </div>
+    </section>
+
+    <section id="case-studies" class="section">
+        <h2>Case Studies</h2>
+        <div class="case-studies">
+            <div class="case-study">
+                <h3>Data Breach at XYZ Corporation</h3>
+                <p>A cyberattack compromised sensitive customer data, resulting in financial losses and damage to the company's reputation. The breach underscored the importance of robust cybersecurity measures and incident response strategies.</p>
+            </div>
+            <div class="case-study">
+                <h3>Ransomware Attack on City Government</h3>
+                <p>A ransomware attack targeted critical systems of a city government, disrupting essential services and demanding a ransom for data decryption. The incident highlighted the vulnerability of public infrastructure to cyber threats and the need for proactive cybersecurity measures.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; Designed and Devloped by Team 5. All rights reserved.</p>
+</footer>
+
+<script>
+    // Add JavaScript functionality to toggle section expansion
+    document.querySelectorAll('.section').forEach(section => {
+        section.addEventListener('click', () => {
+            section.classList.toggle('expanded');
+        });
+    });
+</script>
+<!-- <script>
+    function navigateToIndex() {
+        window.location.href = "/das";
+    }
+</script> -->
+
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Steganography</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='mainstyle.css') }}">
+    <style>
+        /* Provided CSS styles */
+        /* Add CSS styles here */
+        @font-face {
+            font-family: 'Exo 2';
+            font-style: normal;
+            font-weight: 300;
+            src: url(https://fonts.gstatic.com/s/exo2/v18/7cH1v4okm5zmbvwkAx_sfcEuiD8j4PKsOdC6.ttf) format('truetype');
+        }
+        /* Repeat @font-face for other font weights (400, 500, 700) */
+
+        body {
+            background: #ebeff2;
+            font-family: "Exo 2";
+            position: relative;
+        }
+
+        .water-ripple {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.4); /* Adjust opacity to your preference */
+            border-radius: 50%;
+            pointer-events: none; /* Ensure the ripple doesn't interfere with mouse events */
+            animation: ripple 1s infinite ease-in-out alternate; /* Adjust animation duration and timing function */
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .zone {
+            width: 45%;
+            margin: 20px;
+            padding: 20px;
+            background: radial-gradient(ellipse at center, #eb6a5a 0, #c9402f 100%);
+            border: 5px dashed white;
+            color: white;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), inset 0 0 0.25em 0 rgba(0, 0, 0, 0.25);
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="file"],
+        input[type="text"] {
+            width: calc(100% - 40px);
+            padding: 8px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        input[type="submit"] {
+            background-color: #d39e2b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: calc(100% - 40px);
+            margin-top: 10px;
+        }
+
+        .btn-triple-des {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: white;
+            background-color: #9900FF;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-triple-des:hover {
+            background-color: #7A00CC;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1><center><font color="#9900FF" >Audio Steganography </font></center></h1>
+
+    <h2><center>Encode Text into Audio </center></h2>
+    <div class="container">
+        <div class="zone">
+            <form action="/audio_steganography" method="post" enctype="multipart/form-data">
+                <label for="audio_file">Select Audio File:</label>
+                <input type="file" id="audio_file" name="audio_file" accept=".wav">
+                <br>
+                <label for="text_data">Enter Text to Hide:</label>
+                <textarea id="text_data" name="text_data" rows="4" cols="50"></textarea>
+                <br>
+                <input type="submit" name="audio_encrypt" value="Encrypt">
+            </form>
+        </div>
+
+        <div class="zone">
+            <form action="/audio_steganography" method="post" enctype="multipart/form-data">
+                <label for="encrypted_audio">Upload Encrypted Audio:</label>
+                <input type="file" id="encrypted_audio" name="encrypted_audio" accept=".wav">
+                <br>
+                <input type="submit" name="audio_decrypt" value="Decrypt">
+            </form>
+            {% if decoded_text %}
+                <h2>Decrypted Text:</h2>
+                <p>{{ decoded_text }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- JavaScript for creating the water ripple effect -->
+    <script>
+        document.addEventListener('mousemove', function (e) {
+            const ripple = document.createElement('span');
+            ripple.classList.add('water-ripple');
+            ripple.style.left = e.pageX + 'px';
+            ripple.style.top = e.pageY + 'px';
+            document.body.appendChild(ripple);
+            setTimeout(() => {
+                document.body.removeChild(ripple);
+            }, 1000); // Adjust ripple duration
+        });
+    </script>
+    <h3><a class="btn-triple-des" href="/dashboard.html">Triple DES</a></h3>
+
+    <footer>
+        Designed and Developed by Team 5 Mohammad Muzamil Aldin and Team
+    </footer>
+</body>
+</html>
